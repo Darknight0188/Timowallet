@@ -5,11 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\userUpdate;
 use App\Http\Requests\changePassword;
+use App\Repositories\User\UserRepositoryInterface;
 use App\users;
 use DB;
 
 class userController extends Controller
 {
+
+    public function __construct(UserRepositoryInterface $userRepository){
+        $this->userRepository = $userRepository;
+    }
+
+
     // get view form update user
     public function getUpdate($id){
         $user = users::find($id);
