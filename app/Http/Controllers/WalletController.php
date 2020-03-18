@@ -8,12 +8,18 @@ use App\Http\Requests\CreateWallet;
 
 use App\Http\Requests\EditWallet;
 
-use App\Wallet;
+use App\Repository\WalletEloquentRepository;
 
-use DB;
+use App\Wallet;
 
 class WalletController extends Controller
 {
+
+    protected $walletRepo;
+
+    public function __construct(WalletEloquentRepository $walletRepo){
+        $this->walletRepo = $walletRepo;
+    }
 
     // Show view create wallet
     public function get_create(){
@@ -26,17 +32,16 @@ class WalletController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function post_create(CreateWallet $request){
-        $wallet = new Wallet;
-        $wallet->name = $request->input('name');
-        $wallet->user_id = auth()->user()->id;
-        $wallet->balance = 0;
-        $wallet->save();
+        $data = $request->all();
+        $data['user_id'] = auth()->user()->id;
+        $data['balance'] = 0;
+        $this->walletRepo->create($data);
         return redirect()->route('wallet.list_wallet');
     }
 
     //show view of list wallets
     public function listWallet(){
-        $lists = DB::table('wallets')->where('user_id',auth()->user()->id)->select()->get(); 
+        $lists = $this->walletRepo->getAll();
         // dd($lists);
         return view('wallets.list',['lists'=>$lists]);
     }
@@ -46,7 +51,7 @@ class WalletController extends Controller
      * @param $id
      */
     public function get_editWallet($id){
-        $wallet = DB::table('wallets')->find($id);
+        $wallet = $this->walletRepo->find($id);
         return view('wallets.edit',['wallet'=>$wallet]);
     }
     /**
@@ -56,9 +61,8 @@ class WalletController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function post_editWallet(EditWallet $request, $id){
-        $wallet = Wallet::find($id);
-        $wallet->name = $request->input('name');
-        $wallet->save();
+        $data = $request->all();
+        $this->walletRepo->update($id,$data);
         return redirect()->route('wallet.list_wallet');
     }
 
@@ -67,8 +71,7 @@ class WalletController extends Controller
      * @param $id
      */
     public function deleteWallet($id){
-        $wallet = Wallet::find($id);
-        $wallet->delete();
+        $this->walletRepo->delete($id);
         return redirect()->route('wallet.list_wallet');
     }
 }
