@@ -32,4 +32,43 @@ class CategoryEloquentRepository extends EloquentRepository{
           $list = $this->getAll();
           return $this->_findChild($parent,$lists);
       }
+
+      /**
+       * Build an array of category id that belong to the $parent id
+       * 
+       * @param int $id
+       * @param collection $list
+       * @return array $child
+       */
+      public function _findChild($parent, $list){
+          $_child = $list->where('parent_id',$parent);
+
+          if($_child->count()>0){
+              foreach ($_child as $item) {
+                  $child[] = $item->id;
+                  $new = $this->_findChild($item->id, $list);
+                  if($new != null) {
+                      $child = array_merge($child, $new);
+                  }
+              }
+          } else {
+              $child = null;
+          }
+          return $child;
+      }
+
+      public function restore($id){
+          $record = $this->find($id);
+
+          $parent = $this->find($record->parent_id);
+
+          if($parent->delete_flag != null){
+              $parent = $this->query()->where('type',$record->type)->where('parent_id',0)->first();
+              $record->parent_id = $parent_id;
+          }
+
+          $record->delete_flag = null;
+
+          $record->save();
+      }
 }
