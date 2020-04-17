@@ -8,6 +8,7 @@
       <th scope="col">Name</th>
       <th scope="col">Balance</th>
       <th scope="col">Action</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -20,6 +21,9 @@
         <td>
             <a href="{{url('wallet/edit')}}/{{$list->id}}" type="button" class="btn btn-primary">Edit</a>
             <a href="{{url('wallet/delete')}}/{{$list->id}}" type="button" class="btn btn-danger">Delete</a>
+        </td>
+        <td>
+          <a href="#" type="button" class="btn btn-info">Transfer money</a>
         </td>
     </tr>
     @endforeach

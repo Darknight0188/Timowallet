@@ -37,5 +37,14 @@ Route::middleware('verified')->group(function(){
         Route::get('/delete/{id}',"WalletController@deleteWallet")->name('delete_wallet');
     });
 
+    Route::group(['prefix'=>'category','as'=>'category.'], function(){
+        Route::get('/create','CategoryController@create')->name('create_cat');
+        Route::get('/','CategoryController@index')->name('index');
+        Route::post('/create','CategoryController@store')->name('store_cat');
+        Route::get('/update/{id}','CategoryController@edit')->name('edit');
+        Route::post('/update/{id}','CategoryController@update')->name('update');
+        Route::get('/delete/{id}','CategoryController@destroy')->name('delete');
+    });
+
 });
 

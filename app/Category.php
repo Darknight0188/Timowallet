@@ -13,7 +13,7 @@ class Category extends Model
      */
 
      protected $fillable = [
-         'user_id','type','name','parent_id','delete_flag',
+         'user_id','type','name','delete_flag',
      ];
 
      protected $table='categories';

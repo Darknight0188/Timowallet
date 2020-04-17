@@ -11,4 +11,8 @@ class Wallet extends Model
     protected $fillable = [
         'user_id','name','balance','delete_flag',
     ];
+
+    public function users(){
+        return $this->belongsto('App/User');
+    }
 }

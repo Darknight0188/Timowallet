@@ -19,17 +19,20 @@
                   </ul>
             </div>
         </li>
+        
             <!-- <li class="panel"><a href="#"><i class="fas fa-address-card"></i>Wallet</a></li> -->
-            <li class="panel"><a href="#"><i class="fas fa-project-diagram"></i>Portfolio</a></li>
+          <li class="panel"><a href="#" data-toggle="collapse" data-parent="#accordion" data-target="#collapse3" class="collapsed" aria-expanded="false"><i class="fas fa-project-diagram"></i><span>Category</span><i class="fas fa-caret-down" id="category"></i></a>
+            <div id="collapse3" class="collapse" aria-expanded="false" style="height: 0px;">
+                  <ul class="dropdown">
+                      <li><a href="{{url('category')}}">List Category</a></li>
+                      <li><a href="{{url('category/create')}}">Create Category</a></li>
+                  </ul>
+            </div>
+          </li>
             <li class="panel"><a href="#"><i class="fas fa-blog"></i>Blogs</a></li>
-            <li class="panel"><a href="#"><i class="fas fa-address-book">Contact</i></a></li>
+            <li class="panel"><a href="#"><i class="fas fa-address-book"></i>Contact</a></li>
             <li class="panel"><a href="#"><i class="fas fa-map pin"></i>Maps</a></li>
           </ul>
-          <div class="social_media">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-          </div>
         </div>
         <div class="main_content">
           <!-- <div class="header">Dasbroad</div> -->
