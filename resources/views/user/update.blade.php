@@ -4,7 +4,7 @@
 <form class="form-horizontal" method="POST" enctype="multipart/form-data">
 @csrf
   <div class="form-group">
-    <label for="exampleInputEmail1">Wallet name</label>
+    <label for="exampleInputEmail1">User name</label>
     <input type="text" class="form-control" name="name" id="exampleInputEmail1" placeholder="Enter name" value="{{$user->name}}">
         @if($errors->has('name'))
         <span class="error-text" style='color:red'>

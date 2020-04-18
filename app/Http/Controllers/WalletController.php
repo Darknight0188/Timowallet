@@ -74,4 +74,25 @@ class WalletController extends Controller
         $this->walletRepo->delete($id);
         return redirect()->route('wallet.list_wallet');
     }
+
+    public function getTransfer($id){
+        $wallet = $this->walletRepo->find($id);
+        $transfers = Wallet::pluck('name','id')->except($wallet->id)->all();
+        return view('wallets.transfer',compact('transfers'));
+    }
+
+    public function postTransfer(Request $request, $id){
+        $wallet = $this->walletRepo->find($id);
+        $transfer = $this->walletRepo->find($request->wallet);
+        if($wallet->balance>$request->amount){
+            $total = $wallet->balance-$request->amount;
+        } else {
+            echo "<script type='text/javasciprt>alert('You have not enough money');</script>";
+        }
+        $wallet->balance = $total;
+        $wallet->save();
+        $transfer->balance = $request->amount;
+        $transfer->save();
+        return redirect()->route('wallet.list_wallet');
+    }
 }

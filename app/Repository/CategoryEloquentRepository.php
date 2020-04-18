@@ -18,7 +18,6 @@ class CategoryEloquentRepository extends EloquentRepository{
              'user_id',
              'type',
              'name',
-             'parent_id'
          ];
      }
 

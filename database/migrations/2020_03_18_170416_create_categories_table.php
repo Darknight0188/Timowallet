@@ -18,7 +18,6 @@ class CreateCategoriesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('type');
             $table->string('name');
-            $table->integer('parent_id');
             $table->timestamps();
             $table->integer('delete_flag')->nullable();
             $table->foreign('user_id')

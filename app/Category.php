@@ -21,4 +21,8 @@ class Category extends Model
      public function user(){
          return $this->belongsto('App\User');
      }
+
+     public function transaction(){
+         return $this->hasMany('App\Transaction');
+     }
 }
