@@ -39,7 +39,7 @@ Route::middleware('verified')->group(function(){
         Route::post('/transfer/{id}','WalletController@postTransfer')->name('post_transfer');
     });
 
-    Route::group(['prefix'=>'category','as'=>'category.'], function(){
+    Route::group(['prefix'=>'category','as'=>'category.','middleware'=>'auth'], function(){
         Route::get('/create','CategoryController@create')->name('create_cat');
         Route::get('/','CategoryController@index')->name('index');
         Route::post('/create','CategoryController@store')->name('store_cat');
@@ -48,10 +48,12 @@ Route::middleware('verified')->group(function(){
         Route::get('/delete/{id}','CategoryController@destroy')->name('delete');
     });
 
-    Route::group(['prefix'=>'transaction','as'=>'transaction.'], function(){
+    Route::group(['prefix'=>'transaction','as'=>'transaction.','middleware'=>'auth'], function(){
         Route::get('/create','TransactionController@create')->name('create_trans');
         Route::post('/create','TransactionController@store')->name('store_trans');
         Route::get('/','TransactionController@index')->name('index');
+        Route::get('/update/{id}','TransactionController@edit')->name('edit');
+        Route::post('/update/{id}','TransactionController@update')->name('update');
     });
 
 });

@@ -84,14 +84,14 @@ class WalletController extends Controller
     public function postTransfer(Request $request, $id){
         $wallet = $this->walletRepo->find($id);
         $transfer = $this->walletRepo->find($request->wallet);
-        if($wallet->balance>$request->amount){
+        if($wallet->balance>=$request->amount){
             $total = $wallet->balance-$request->amount;
         } else {
             echo "<script type='text/javasciprt>alert('You have not enough money');</script>";
         }
         $wallet->balance = $total;
         $wallet->save();
-        $transfer->balance = $request->amount;
+        $transfer->balance = $request->amount+$transfer->balance;
         $transfer->save();
         return redirect()->route('wallet.list_wallet');
     }

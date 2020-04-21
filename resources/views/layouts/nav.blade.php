@@ -19,9 +19,7 @@
                   </ul>
             </div>
         </li>
-        
-            <!-- <li class="panel"><a href="#"><i class="fas fa-address-card"></i>Wallet</a></li> -->
-          <li class="panel"><a href="#" data-toggle="collapse" data-parent="#accordion" data-target="#collapse3" class="collapsed" aria-expanded="false"><i class="fas fa-project-diagram"></i><span>Category</span><i class="fas fa-caret-down" id="category"></i></a>
+          <li class="panel"><a href="#" data-toggle="collapse" data-parent="#accordion" data-target="#collapse3" class="collapsed" aria-expanded="false"><i class="fas fa-project-diagram"></i><span>Category</span><i class="fas fa-caret-down" id="category_caret"></i></a>
             <div id="collapse3" class="collapse" aria-expanded="false" style="height: 0px;">
                   <ul class="dropdown">
                       <li><a href="{{url('category')}}">List Category</a></li>
@@ -29,7 +27,15 @@
                   </ul>
             </div>
           </li>
-            <li class="panel"><a href="#"><i class="fas fa-blog"></i>Blogs</a></li>
+            <!-- <li class="panel"><a href="#"><i class="fas fa-blog"></i>Blogs</a></li> -->
+            <li class="panel"><a href="#" data-toggle="collapse" data-parent="#accordion" data-target="#collapse4" class="collapsed" aria-expanded="false"><i class="fas fa-blog"></i><span>Transaction</span><i class="fas fa-caret-down" id="transaction_caret"></i></a>
+            <div id="collapse4" class="collapse" aria-expanded="false" style="height: 0px;">
+                  <ul class="dropdown">
+                      <li><a href="{{url('transaction')}}">List Transaction</a></li>
+                      <li><a href="{{url('transaction/create')}}">Create Transaction</a></li>
+                  </ul>
+            </div>
+          </li>
             <li class="panel"><a href="#"><i class="fas fa-address-book"></i>Contact</a></li>
             <li class="panel"><a href="#"><i class="fas fa-map pin"></i>Maps</a></li>
           </ul>

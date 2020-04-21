@@ -23,7 +23,7 @@
             <a href="{{url('wallet/delete')}}/{{$list->id}}" type="button" class="btn btn-danger">Delete</a>
         </td>
         <td>
-          <a href="#" type="button" class="btn btn-info">Transfer money</a>
+          <a href="{{url('wallet/transfer')}}/{{$list->id}}" type="button" class="btn btn-info">Transfer money</a>
         </td>
     </tr>
     @endforeach

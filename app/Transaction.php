@@ -12,7 +12,7 @@ class Transaction extends Model
         'id',
         'user_id',
         'wallet_id',
-        'cat_id',
+        'category_id',
         'type',
         'details',
         'amount',
