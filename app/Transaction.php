@@ -16,7 +16,6 @@ class Transaction extends Model
         'type',
         'details',
         'amount',
-        'benefit_wallet'
     ];
 
     public function users(){

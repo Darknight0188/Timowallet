@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Repository\WalletEloquentRepository;
 
+use App\Repository\TransactionEloquentRepository;
+
 use App\Transaction;
 
 use App\Wallet;
@@ -21,8 +23,9 @@ class TransactionController extends Controller
 
     protected $walletRepo;
 
-    public function __construct(WalletEloquentRepository $walletRepo){
+    public function __construct(WalletEloquentRepository $walletRepo,TransactionEloquentRepository $transRepo){
         $this->walletRepo = $walletRepo;
+        $this->transRepo = $transRepo;
     }
 
     /**
@@ -33,7 +36,7 @@ class TransactionController extends Controller
     public function index()
     {
         //
-        $transactions = Transaction::all();
+        $transactions = $this->transRepo->all();
         
         return view('transaction.index',compact('transactions'));
     }
@@ -72,9 +75,9 @@ class TransactionController extends Controller
 
         $type = $request->type;
 
-        Transaction::create($data);
+        $this->transRepo->create($data);
 
-        $wallet = Wallet::findOrFail($request->wallet_id);
+        $wallet = $this->walletRepo->find($request->wallet_id);
 
         switch($type){
             case 0:
@@ -87,7 +90,7 @@ class TransactionController extends Controller
                     $wallet->save();
                 } 
                 else {
-                    echo "<script type='text/javasciprt>alert('You have not enough money');</script>";
+                    echo "<script type='text/javascript>alert('You have not enough money');</script>";
                 }
                 break;
         }
@@ -116,7 +119,7 @@ class TransactionController extends Controller
     public function edit($id)
     {
         //
-        $transaction = Transaction::findOrFail($id);
+        $transaction = $this->transRepo->find($id);
 
         $wallet = Wallet::pluck('name','id')->all();
 
@@ -137,7 +140,7 @@ class TransactionController extends Controller
     public function update(Request $request, $id)
     {
         //
-       $transaction = Transaction::findOrFail($id);
+       $transaction = $this->transRepo->find($id);
        $old_wallet = $transaction->wallet_id;
        $old_type = $transaction->type;
        $old_amount = $transaction->amount;
@@ -166,15 +169,13 @@ class TransactionController extends Controller
     public function destroy($id)
     {
         //
-        $transaction = Transaction::findOrFail($id);
-
-        $transaction->delete();
+        $this->transRepo->delete($id);
 
         return redirect('/transaction');
     }
 
     public function search(Request $request){
-
+        
     }
 
     public function transactionRollback($id, $type, $amount){

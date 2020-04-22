@@ -87,7 +87,7 @@ class WalletController extends Controller
         if($wallet->balance>=$request->amount){
             $total = $wallet->balance-$request->amount;
         } else {
-            echo "<script type='text/javasciprt>alert('You have not enough money');</script>";
+            echo "<script type='text/javascript>alert('You have not enough money');</script>";
         }
         $wallet->balance = $total;
         $wallet->save();
